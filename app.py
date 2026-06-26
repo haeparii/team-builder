@@ -648,6 +648,8 @@ def page_login():
             if len(valid) > 1:
                 st.session_state.update({"page": "student_select_section", "student_matches": valid})
             else:
+                for k in ["basic_gender", "basic_mbti", "basic_career", "survey_page", "survey_answers", "survey_seed", "welcome_msg"]:
+                    st.session_state.pop(k, None)
                 st.session_state.update({"page": "student_main", "student": valid[0]})
             st.rerun()
 
@@ -693,6 +695,8 @@ def page_student_select_section():
     st.write("동일 교수의 여러 수업에 등록되어 있습니다. 오늘 참여할 수업을 선택하세요.")
     selected = st.radio("수업 선택", list(options.keys()))
     if st.button("확인", use_container_width=True):
+        for k in ["basic_gender", "basic_mbti", "basic_career", "survey_page", "survey_answers", "survey_seed", "welcome_msg"]:
+            st.session_state.pop(k, None)
         st.session_state.update({"page": "student_main", "student": options[selected]})
         st.rerun()
 
